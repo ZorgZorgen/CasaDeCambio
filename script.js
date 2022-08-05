@@ -1,9 +1,5 @@
-
-
-// include api for currency change
 const api = "https://api.exchangerate-api.com/v4/latest/USD";
 
-// for selecting different controls
 var search = document.querySelector(".searchBox");
 var convert = document.querySelector(".convert");
 var fromCurrecy = document.querySelector(".from");
@@ -14,46 +10,59 @@ var resultFrom;
 var resultTo;
 var searchValue;
 
+
 // Cambio de moneda
+
 fromCurrecy.addEventListener('change', (event) => {
-	resultFrom = `${event.target.value}`;
+    resultFrom = `${event.target.value}`;
 });
 
 // Cambio de moneda
 toCurrecy.addEventListener('change', (event) => {
-	resultTo = `${event.target.value}`;
+
+    resultTo = `${event.target.value}`;
+
 });
-
 search.addEventListener('input', updateValue);
+// funcion para actualizar valor
 
-// function for updating value
 function updateValue(e) {
-	searchValue = e.target.value;
+    searchValue = e.target.value;
 }
-
-// when user clicks, it calls function getresults
+// llamar getResults
 convert.addEventListener("click", getResults);
-
-// function getresults
+// funcion getresults
 module.exports = function getResults() {
-	fetch(`${api}`)
-		.then(currency => {
-			return currency.json();
-		}).then(displayResults);
+    fetch(`${api}`)
+        .then(currency => {
+            return currency.json();
+        }).then(displayResults);
 }
+// desplegar resultados
 
-// display results after convertion
 function displayResults(currency) {
-	let fromRate = currency.rates[resultFrom];
-	let toRate = currency.rates[resultTo];
-	finalValue.innerHTML =
-	((toRate / fromRate) * searchValue).toFixed(2);
-	finalAmount.style.display = "block";
+
+    let fromRate = currency.rates[resultFrom];
+
+    let toRate = currency.rates[resultTo];
+
+    finalValue.innerHTML =
+    ((toRate / fromRate) * searchValue).toFixed(2);
+
+
+
+    finalAmount.style.display = "block";
+
+
+
+
 }
 
-// when user click on reset button
+// usuario da click en reset
 function clearVal() {
-	window.location.reload();
-	document.getElementsByClassName("finalValue").innerHTML = "";
-};
+    window.location.reload();
 
+    document.getElementsByClassName("finalValue").innerHTML = "";
+
+};
+// incluye api
